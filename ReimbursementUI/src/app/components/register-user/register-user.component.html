@@ -1,0 +1,139 @@
+<div class="container col-sm-6">
+  <form [formGroup]="registerUserForm" (ngSubmit)="registerUser()">
+    <div class="form-group">
+      <label for="inputEmail">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="inputEmail"
+        placeholder="Enter email"
+        name="email"
+        formControlName="email"
+      />
+      <span
+        class="text-danger"
+        *ngIf = "
+          email.touched &&
+          email.invalid
+        "
+        >Invalid Value</span
+      >
+
+    </div>
+    <div class="form-group">
+      <label for="inputPassword1">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="inputPassword"
+        placeholder="Password"
+        name="password"
+        formControlName="password"
+      />      
+      <span
+        class="text-danger"
+        *ngIf = "
+          password.touched &&
+          password.invalid
+        "
+        >Password is required and must be 8 character long with 1 special character, 1 number, 1 alphabet.</span
+      >
+    </div>
+    <div class="form-group">
+      <label for="inputPassword1">Confirm Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="inputPassword1"
+        placeholder="Confirm Password"
+        name="confirmPassword"
+        formControlName="confirmPassword"
+      />
+      <div *ngIf="f['confirmPassword'].touched && f['confirmPassword'].invalid">
+        <span
+          *ngIf="
+            f['confirmPassword'].touched && f['confirmPassword'].invalid &&
+            f['confirmPassword'].errors &&
+            f['confirmPassword'].errors['confirmedValidator']
+          "
+          class="alert alert-danger"
+        >
+          Must be same as Password
+    </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputFullname">Full Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="fullname"
+        placeholder="Full Name"
+        name="fullName"
+        formControlName="fullName"
+      />
+      <span
+        class="text-danger"
+        *ngIf = "
+          fullName.touched &&
+          fullName.invalid
+        "
+        >Required field</span
+      >
+    </div>
+    <div class="form-group">
+      <label for="inputPAN">PAN Number</label>
+      <input
+        type="text"
+        class="form-control"
+        id="pan"
+        placeholder="PAN"
+        name="pan"
+        formControlName="pan"
+      />
+      <span
+        class="text-danger"
+        *ngIf = "
+          pan.touched &&
+          pan.invalid
+        "
+        >Required field & must be 10 character long</span
+      >
+    </div>
+    <div class="form-group">
+      <label for="inputBank">Bank</label>
+      <select
+        class="form-control col-sm-6 form-control-sm"
+        id="bank"
+        name="bank"
+        formControlName="bank"
+      >
+        <option selected>HDFC Bank</option>
+        <option>ICICI Bank</option>
+        <option>Kotak Bank</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="inputbankaccno">Bank Account Number</label>
+      <input
+        type="number"
+        class="form-control"
+        id="bankaccno"
+        placeholder="Bank Acc No."
+        name="bankAccNo"
+        formControlName="bankAccNo"
+      />
+      <span
+        class="text-danger"
+        *ngIf = "
+          bankAccNo.touched &&
+          bankAccNo.invalid
+        "
+        >Required field & must be 12 digits.</span
+      >
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!registerUserForm.valid">Submit</button>
+    <br>
+    <a routerLink="/login-user">Login</a>
+  </form>
+</div>

@@ -1,0 +1,31 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Reimbursement Type</th>
+        <th scope="col">Requested Value</th>
+        <th scope="col">Approved Value</th>
+        <th scope="col">Currency</th>
+        <th scope="col">Request Phase</th>
+        <th scope="col">Receipt Link</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let claim of claims">
+        <td>{{claim.date | date}}</td>
+        <td>{{claim.reimbursementType}}</td>
+        <td>{{claim.requestedValue}}</td>
+        <td>{{claim.approvedValue}}</td>
+        <td>{{claim.currency}}</td>
+        <td>{{claim.requestPhase}}</td>
+        <td *ngIf="claim.receiptUrl!=null"><a target="_blank" href={{claim.receiptUrl}}>Receipt Link</a></td>
+        <td *ngIf="claim.receiptUrl===null">No receipt attached</td>
+        <td [hidden]="claim.requestPhase==='Approved' || claim.requestPhase==='Declined'">
+          <i (click) = "updateClaims(claim.id)" class="fa fa-pencil" style="color: blue; margin-right: 8px;"></i>
+          <i (click) = "deleteClaim(claim.id)" class="fa fa-trash" style="color: red; margin-left: 8px;"></i>
+        </td>
+        <td *ngIf="claim.requestPhase==='Approved' || claim.requestPhase==='Declined'">Request has been resolved and can't be changed.</td>
+      </tr>
+    </tbody>
+  </table>

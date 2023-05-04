@@ -1,0 +1,51 @@
+<div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="flag">
+  Request for reimbursement will be declined.
+  <button type="button" class="btn btn-light" data-dismiss="alert" aria-label="Close" (click)="confirmDecline()">
+    Agree
+  </button>
+</div>
+<br>
+<div class="container search-bar col-sm-4">
+  <input class="form-control" type="search" placeholder="Search Email" [(ngModel)]="searchEmail">
+</div>
+<br>
+<div class="container">
+    <button type="button" class="btn btn-dark" (click)="setToggle(1)">Pending</button>
+    <button type="button" class="btn btn-dark" (click)="setToggle(2)">Approved</button>
+    <button type="button" class="btn btn-dark" (click)="setToggle(3)">Declined</button>
+</div>
+<br>
+<div class="container">
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Requested By</th>
+        <th scope="col">Reimbursement Type</th>
+        <th scope="col">Requested Value</th>
+        <th scope="col">Approved Value</th>
+        <th scope="col">Currency</th>
+        <th scope="col">Request Phase</th>
+        <th scope="col">Receipt Link</th>
+        <th scope="col" [hidden]="toggle==2 || toggle==3">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor= "let claim of loading | filter:searchEmail">
+        <td>{{claim.date | date}}</td>
+        <td>{{claim.email}}</td>
+        <td>{{claim.reimbursementType}}</td>
+        <td>{{claim.requestedValue}}</td>
+        <td>{{claim.approvedValue}}</td>
+        <td>{{claim.currency}}</td>
+        <td>{{claim.requestPhase}}</td>
+        <td *ngIf="claim.receiptUrl!=null"><a target="_blank" href={{claim.receiptUrl}}>Receipt Link</a></td>
+        <td *ngIf="claim.receiptUrl==null">No Receipt Available</td>
+        <td [hidden]="toggle==2 || toggle==3">
+          <button class="btn btn-primary" (click)="approve(claim.id)">Approve</button><br>
+          <button class="btn btn-danger" (click)="decline(claim.id)">Decline</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
